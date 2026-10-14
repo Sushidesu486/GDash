@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# 配置文件（本地）
+config.json
+*.local
+
+# 临时文件
+*.tmp
+*.bak
+*.backup
+
+# 测试
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 部署包
+*.tar.gz
+*.zip

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDash Control - ROG G18 远程控制</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <div class="header-content">
+                <h1>GDash Control</h1>
+                <div class="status-badge" id="serviceStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main">
+            <!-- 任务列表 -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>定时任务</h2>
+                    <button class="btn btn-secondary" onclick="refreshTasks()">
+                        <span id="refreshIcon">↻</span> 刷新
+                    </button>
+                </div>
+
+                <div id="taskList" class="task-grid">
+                    <div class="loading">加载中...</div>
+                </div>
+            </section>
+
+            <!-- 操作日志 -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>操作日志</h2>
+                    <button class="btn btn-secondary" onclick="refreshLogs()">
+                        <span id="logRefreshIcon">↻</span> 刷新
+                    </button>
+                </div>
+
+                <div class="log-container">
+                    <div id="auditLogs" class="log-content">
+                        <div class="loading">加载中...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>GDash Control Service v0.1.0 | Phase 1: 任务管理</p>
+        </footer>
+    </div>
+
+    <!-- 确认对话框 -->
+    <div id="confirmDialog" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>确认执行任务</h3>
+            <p id="confirmMessage">确定要执行此任务吗？</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeConfirmDialog()">取消</button>
+                <button class="btn btn-primary" onclick="executeConfirmedTask()">确认执行</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 详情对话框 -->
+    <div id="detailDialog" class="modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="detailTitle">任务详情</h3>
+                <button class="modal-close" onclick="closeDetailDialog()">×</button>
+            </div>
+            <div id="detailContent" class="detail-content">
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

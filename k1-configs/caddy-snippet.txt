@@ -1,0 +1,18 @@
+# Caddy 配置片段 - 添加到现有配置中
+# 位置: /etc/caddy/Caddyfile
+
+# 在 :13400 回环段中添加以下内容
+
+:13400 {
+    bind 127.0.0.1
+
+    # 现有 Grafana 路由（保持不变）
+    handle /* {
+        reverse_proxy 127.0.0.1:13300
+    }
+
+    # 新增 GDash 路由
+    handle_path /control/* {
+        reverse_proxy 127.0.0.1:13500
+    }
+}

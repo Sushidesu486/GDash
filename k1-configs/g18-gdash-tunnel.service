@@ -1,0 +1,17 @@
+[Unit]
+Description=SSH tunnel for GDash Control
+After=network.target
+
+[Service]
+Type=simple
+User=g18-tunnel
+ExecStart=/usr/bin/ssh -N -T \
+  -o ServerAliveInterval=30 \
+  -o ExitOnForwardFailure=yes \
+  -L 127.0.0.1:13500:127.0.0.1:5000 \
+  g18-win
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

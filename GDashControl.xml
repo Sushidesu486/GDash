@@ -1,0 +1,18 @@
+<service>
+  <id>GDashControl</id>
+  <name>GDash Control Service</name>
+  <description>ROG G18 远程控制服务 - Phase 1: 任务管理</description>
+
+  <executable>C:\Users\29546\miniconda3\python.exe</executable>
+  <arguments>app.py</arguments>
+  <workingdirectory>C:\Tools\GDashControl</workingdirectory>
+
+  <logpath>C:\ProgramData\GDashControl\logs</logpath>
+  <logmode>rotate</logmode>
+
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="20 sec"/>
+  <onfailure action="restart" delay="30 sec"/>
+
+  <resetfailure>1 hour</resetfailure>
+</service>
