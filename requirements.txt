@@ -1,4 +1,4 @@
 fastapi==0.115.0
 uvicorn[standard]==0.32.0
-pywin32==306
+pywin32==312
 python-dateutil==2.9.0

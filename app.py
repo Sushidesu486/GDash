@@ -8,6 +8,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse, HTMLResponse
@@ -52,11 +53,30 @@ config = Config()
 logger = setup_logging(config)
 audit_logger = logging.getLogger('audit')
 
+# Lifespan 事件管理
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """应用生命周期管理"""
+    # 启动
+    logger.info("=" * 60)
+    logger.info("GDash Control Service Starting")
+    logger.info(f"Host: {config.host}:{config.port}")
+    logger.info(f"Task Prefix: {config.task_prefix}")
+    logger.info(f"Log Level: {config.log_level}")
+    logger.info("=" * 60)
+
+    yield
+
+    # 关闭
+    logger.info("GDash Control Service Shutting Down")
+
+
 # 创建 FastAPI 应用
 app = FastAPI(
     title="GDash Control Service",
     description="ROG G18 远程控制服务",
-    version="0.1.0"
+    version="0.1.0",
+    lifespan=lifespan
 )
 
 # 任务管理器（延迟初始化）
@@ -269,25 +289,8 @@ async def get_audit_logs(request: Request, lines: int = 100):
 
 
 # ============================================================================
-# 应用启动
+# 主程序入口
 # ============================================================================
-
-@app.on_event("startup")
-async def startup_event():
-    """应用启动时执行"""
-    logger.info("=" * 60)
-    logger.info("GDash Control Service Starting")
-    logger.info(f"Host: {config.host}:{config.port}")
-    logger.info(f"Task Prefix: {config.task_prefix}")
-    logger.info(f"Log Level: {config.log_level}")
-    logger.info("=" * 60)
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """应用关闭时执行"""
-    logger.info("GDash Control Service Shutting Down")
-
 
 if __name__ == "__main__":
     # 直接运行（开发模式）
